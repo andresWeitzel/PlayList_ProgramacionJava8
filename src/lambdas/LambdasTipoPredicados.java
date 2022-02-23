@@ -2,7 +2,7 @@ package lambdas;
 
 import java.util.function.Predicate;
 
-public class PredicadosLambdas {
+public class LambdasTipoPredicados {
 	
 	public static void main(String[] args) {
 		
@@ -39,6 +39,8 @@ public class PredicadosLambdas {
 				|| cadenaDeTexto02.test("Esto es otro texto") 
 				);
 		
+		
+
 		System.out.println("\n--- Comparar Longitud de 1 Cadena con Comparador OR en Predicado---");
 		
 		
@@ -50,65 +52,64 @@ public class PredicadosLambdas {
 		
 		
 		System.out.println(cadenaDeTexto03.test("dasdasad"));
-
-
+		
 		
 		System.out.println("\n==================================================");
 		System.out.println("======== Predicados Lambdas Tipo Integer =========");
 		System.out.println("==================================================\n");
 		
-		System.out.println("\n--- Comparar 1 Número---");
-		
 		int numControl = 12;
 		int numComparar = 10;
+
+		System.out.println("\n--- Comparamos 2 Números ---");
 		
-		Predicate<Integer> numero02 = n1 -> (n1 > numControl);
+		Predicate<Integer> num02 = n1 -> (n1 > numControl);
+
+		System.out.println(num02.test(numComparar));
 		
-		System.out.println(numero02.test(numComparar));
+		
+		
+		System.out.println("\n--- Comparamos 2 Números con Comparador OR ---");
+		
+		Predicate<Integer> num03 = n1 -> (n1 > numControl);
+
+		System.out.println(num03.test(30) || num03.test(32));
+		
+		
+		
+		System.out.println("\n--- Comparamos 2 Números con Comparador AND ---");
+		
+		Predicate<Integer> num04 = n1 -> (n1 < numControl);
+
+		System.out.println(num04.test(30) && num04.test(32));
 		
 
-		System.out.println("\n--- Comparar 2 Números Comparador OR---");
-		
-		
-		Predicate<Integer> numero03 = n1 -> (n1 > numControl);
-		
-		System.out.println(numero03.test(17) || numero03.test(7));
+
+		System.out.println("\n--- Comparamos 2 Números con 2 Expresiones Función OR ---");
 		
 
-		System.out.println("\n--- Comparar 2 Números Comparador AND---");
+		System.out.println(num03.or(num02).test(30));
+
+	
+
+		System.out.println("\n--- Comparamos 2 Números con 2 Expresiones Función AND ---");
+		
+
+		System.out.println(num03.and(num04).test(30));
+
+
+		
+		//====================================================================
 		
 		
-		Predicate<Integer> numero04 = n1 -> (n1 > numControl);
 		
-		System.out.println(numero04.test(17) && numero04.test(98));
-		
-		
-		System.out.println("\n--- Comparar  Números Función OR y AND---");
-		
-		
-		int numControl02 = numControl + 3;
-		
-		
-		Predicate<Integer> numero05 = n1 -> (n1 > numControl02);
-		
-		Predicate<Integer> numero06 = n2 -> (n2 > 22);
-		
-		System.out.println(numero05.or(numero06).test(17));
-		
-		System.out.println(numero05.and(numero06).test(17));
-		
-		System.out.println(
-				numero05.and(numero06).test(17) 
-				|| numero05.and(numero06).test(36)
-				);
-		
-		
+
 
 		System.out.println("\n==================================================");
 		System.out.println("======== Predicados Lambdas Tipo Decimal (Double) =========");
 		System.out.println("==================================================\n");
 		
-		System.out.println("\n--- Comparar 1 Número---");
+		System.out.println("\n--- Comparar 2 Número---");
 		
 		
 		Predicate<Double> decimal01 = n1 -> (n1 > 5.8);
@@ -116,33 +117,66 @@ public class PredicadosLambdas {
 		System.out.println(decimal01.test(3.4));
 		
 		
-		System.out.println("\n--- Igualdad de Objetos---");
 		
 		
-		Predicate<Double> decimal02 = n1 -> (n1 > 5.8);
-		
-		System.out.println(decimal02.equals(decimal01));
-		
-		System.out.println(decimal01);
-		System.out.println(decimal02);
-		
-		System.out.println("--------------------------");
-		
-		System.out.println(decimal01.toString());
-		System.out.println(decimal02.toString());
 		
 		
-		System.out.println("\n--- Negacion de Comparacion de  1 Número---");
-		
-		Predicate<Double> decimal03 = n1 -> (n1 > 5.8);
-		
-		// El valor del resultado lo negamos
-		System.out.println(decimal03.negate().test(6.8));
 		
 		
+		System.out.println("\n--- Comparar la Igualdad de Objetos---");
+		
+		
+		Predicate<Double> decimal02 = n1 -> (n1.equals(9.78));
+		
+		System.out.println(decimal02.test(9.78));
+		
+		System.out.println(decimal02.test(9.79));
+	
 	
 		
+		System.out.println("\n--- Comparar la Igualdad de Objetos---");
+		
 	
+		Predicate<Double> decimal03 = n1 -> (n1 == 0.0);
+		
+		System.out.println(decimal03.test(0.0));
+		
+		System.out.println(decimal03.test(0.22));
+	
+	
+		
+		System.out.println("\n--- Comparar la Desigualdad de Objetos---");
+		
+		
+		Predicate<Double> decimal04 = n1 -> (n1 != 0.0);
+		
+		System.out.println(decimal04.test(0.0));
+		
+		System.out.println(decimal04.test(0.22));
+		
+		
+		
+		System.out.println("\n--- Comparar la Igualdad Negada de Objetos---");
+		
+		
+		Predicate<Double> decimal05 = n1 -> (n1 == 0.0);
+		
+		// Invertimos el valor logico, si el resultado es true, la operacion es false
+		System.out.println(decimal04.negate().test(0.0));
+		
+		
+		System.out.println(decimal04.negate().test(0.22));
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+
 		
 	}
 
